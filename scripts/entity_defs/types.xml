@@ -1,2 +1,47 @@
 <root>
+    <DBID>     UINT64    </DBID>
+
+    <!-- 角色额外数据 -->
+    <ROLE_DATA> FIXED_DICT
+        <implementedBy>  ROLE_DATA.RoleDataPickler  </implementedBy>
+        <Properties>
+			<DataType>
+				<Type>	INT8	</Type>
+			</DataType>
+			<DataValue>
+				<Type>	BLOB	</Type>
+			</DataValue>
+		</Properties>
+    </ROLE_DATA>
+
+    <!-- 角色信息, 包括数据库ID, 名字, 角色类型, 角色数据 -->
+    <ROLE_INFO>	FIXED_DICT
+        <implementedBy>  ROLE_INFO.RoleInfoInst  </implementedBy>
+        <Properties>
+            <Dbid>
+                <Type> DBID </Type>
+            </Dbid>
+            <Name>
+                <Type>	UNICODE	</Type>
+				<DatabaseLength> 256 </DatabaseLength>
+            </Name>
+            <RoleType>
+                <Type>	UINT8	</Type>
+            </RoleType>
+            <Data>
+                <Type> ROLE_DATA </Type>
+            </Data>
+        </Properties>
+    </ROLE_INFO>
+
+    <!-- 角色信息数组, 是ExAccount下的RoleList变量的类型 -->
+    <ROLE_LIST>	FIXED_DICT
+        <implementedBy>   ROLE_INFO.RoleListPickler   </implementedBy>
+        <Properties>
+            <Value>
+                <Type> ARRAY <of> ROLE_INFO </of> </Type>
+            </Value>
+        </Properties>
+    </ROLE_LIST>
+
 </root>

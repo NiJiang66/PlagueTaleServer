@@ -1,11 +1,71 @@
 <root>
 	<Properties>
+
+        <RoleList>
+            <Type>          ROLE_LIST       </Type>
+            <Flags>			BASE		    </Flags>
+            <Persistent>	true		    </Persistent>
+        </RoleList>
+
+        <LastSelRole>
+			<Type>			DBID					</Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>		0						</Default>
+			<Persistent>	true				    </Persistent>
+		</LastSelRole>
+
 	</Properties>
 
 	<ClientMethods>
+        <!-- 请求角色列表回调函数 -->
+	    <OnReqRoleList>
+			<Arg>			ROLE_LIST	        </Arg>
+		</OnReqRoleList>
+
+        <!-- 请求创建角色回调函数 -->
+		<OnCreateRoleResult>
+			<Arg>			UINT8 				</Arg>
+			<Arg>			ROLE_INFO 		    </Arg>
+		</OnCreateRoleResult>
+
+        <!-- 请求移除角色回调函数 -->
+		<OnRemoveRole>
+			<Arg>			DBID				</Arg>
+		</OnRemoveRole>
+
+        <!-- 选择角色进入游戏回调 -->
+		<OnSelectRoleGame>
+		    <Arg>           UINT8               </Arg>
+		    <Arg>           DBID                </Arg>
+		</OnSelectRoleGame>
+
 	</ClientMethods>
 
 	<BaseMethods>
+	    <!-- 用于客户端请求角色列表 -->
+	    <ReqRoleList>
+			<Exposed/>
+		</ReqRoleList>
+
+		<!-- 用于客户端请求创建角色 -->
+		<ReqCreateRole>
+		    <Exposed/>
+		    <Arg>      UINT8     </Arg> <!-- RoleType -->
+		    <Arg>      UNICODE   </Arg> <!-- Name -->
+		</ReqCreateRole>
+
+		<!-- 用于客户端请求移除角色 -->
+		<ReqRemoveRole>
+		    <Exposed/>
+		    <Arg>       UNICODE   </Arg> <!-- Name -->
+		</ReqRemoveRole>
+
+        <!-- 用于客户端请求选择某角色进入游戏 -->
+		<ReqSelectRoleGame>
+		    <Exposed/>
+		    <Arg>       DBID      </Arg> <!-- Dbid -->
+		</ReqSelectRoleGame>
+
 	</BaseMethods>
 
 	<CellMethods>

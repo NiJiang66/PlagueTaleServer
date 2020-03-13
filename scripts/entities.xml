@@ -7,4 +7,6 @@
 
 	<!-- <Avatar/> -->
 	<PtAccount hasClient="true"></PtAccount><!-- <Account hasCell="true" hasBase="true" hasClient="true"></Account> -->
+	<PtRole hasClient="true"></PtRole><!-- <Account hasCell="true" hasBase="true" hasClient="true"></Account> -->
+
 </root>
