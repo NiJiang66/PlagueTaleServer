@@ -2,13 +2,15 @@
 import KBEngine
 from KBEDebug import *
 from ROLE_DATA import TRoleData
-from ROLE_INFO import TRoleInfo
-from ROLE_INFO import TRoleList
+from ROLE_INFO import TRoleInfo,TRoleList
+from ROOM_INFO import TRoomInfo,TRoomList
+
 
 class PtAccount(KBEngine.Proxy):
 	def __init__(self):
 		KBEngine.Proxy.__init__(self)
-		
+		self.ActiveRole = None
+
 	def onTimer(self, id, userArg):
 		"""
 		KBEngine method.
@@ -199,5 +201,92 @@ class PtAccount(KBEngine.Proxy):
 			DEBUG_MSG("PtAccount[%i].SelectRoleGame:%i. No Dbid = %i" % (self.id, Dbid))
 			# 回调客户端的选择角色
 			self.client.OnSelectRoleGame(1, Dbid)
+
+	def ReqRoomList(self):
+		"""
+		请求房间列表
+		"""
+		RoomList = KBEngine.globalData["PtRoomMgr"].GetRoomList()
+		DEBUG_MSG("PtAccount[%i].ReqRoomList: RoomList = %s" % (self.id, RoomList.asDict()))
+		self.client.OnReqRoomList(RoomList)
+
+	def ReqCreateRoom(self, Name):
+		"""
+		请求创建房间,创建房间后调用self.OnAccountCreateRoom
+		:param Name: 房间名字
+		"""
+		DEBUG_MSG("PtAccount[%i].ReqCreateRoom: RoomName = %s" % (self.id, Name))
+		KBEngine.globalData["PtRoomMgr"].CreateRoom(Name, self)
+
+	def OnAccountCreateRoom(self, Succeed, RoomId, Name):
+		"""
+		创建房间回调函数
+		:param Succeed: 是否成功
+		:param RoomId: 房间id
+		:param Name: 房间Name
+		"""
+		Props = {"RoomId": RoomId, "Name": Name}
+		RoomInfo = TRoomInfo().createFromDict(Props)
+
+		if Succeed:
+			self.client.OnCreateRoom(0, RoomInfo)
+		else:
+			self.client.OnCreateRoom(1, RoomInfo)
+
+	def SelectRoomGame(self, RoomId):
+		'''
+		选择房间进入游戏
+		:param RoomId: 房间id
+		'''
+		DEBUG_MSG("PtAccount[%i].SelectRoomGame: RoomId = %i , RoleId = %i" % (self.id, RoomId, self.LastSelRole))
+		# 保存房间id
+		self.LastSelRoom = RoomId
+		# 从数据库创建选中的角色
+		KBEngine.createEntityFromDBID("PtRole", self.LastSelRole, self._OnRoleCreated)
+
+	def _OnRoleCreated(self, BaseRef, Dbid, WasActive):
+		"""
+		选择房间进入游戏从数据库创建选中的角色的回调函数
+		:param BaseRef:角色实体的直接引用
+		:param Dbid:数据库id
+		:param WasActive:是否已经存在于世界，是否激活
+		"""
+		if WasActive:
+			ERROR_MSG("PtAccount[%i]::_OnRoleCreated: this role is in world" % self.id)
+			return
+
+		if BaseRef is None:
+			ERROR_MSG("PtAccount[%i]::_OnRoleCreated: this role create from DB is not Exit" % self.id)
+			return
+
+		# 获取角色实体
+		Role = KBEngine.entities.get(BaseRef.id)
+
+		if Role is None:
+			ERROR_MSG("PtAccount[%i]::_OnRoleCreated: when role was created, it died as well!" % self.id)
+			return
+
+		if self.isDestroyed:
+			ERROR_MSG("PtAccount::_OnRoleCreated:(%i): i dead, will the destroy of role!" % (self.id))
+			Role.destroy()
+			return
+
+		DEBUG_MSG('PtAccount::_OnRoleCreated:(%i) enter room game:  %s, %i' % (self.id, Role.cellData["Name"], Role.databaseID))
+
+		# 保存角色实体到本地
+		self.ActiveRole = Role
+		# 移交客户端代理到角色，移交客户端代理之后，服务端的Account实体不会销毁，
+		# 但是客户端的Account实体会销毁，同时客户端只能和Role角色实体进行联网交互。
+		# 如非要与Account实体交互，需要在服务端将Role上的客户端代理移交回Account实体
+		self.giveClientTo(Role)
+		# 保存Account实体到Role
+		Role.AccountEntity = self
+		# 角色进入场景
+		KBEngine.globalData["PtRoomMgr"].EnterRoom(Role,self.LastSelRoom)
+
+
+
+
+
 
 

@@ -13,6 +13,11 @@ def onBaseAppReady(isBootstrap):
 	INFO_MSG('onBaseAppReady: isBootstrap=%s, appID=%s, bootstrapGroupIndex=%s, bootstrapGlobalIndex=%s' % \
 	 (isBootstrap, os.getenv("KBE_COMPONENTID"), os.getenv("KBE_BOOTIDX_GROUP"), os.getenv("KBE_BOOTIDX_GLOBAL")))
 
+	# 如果是第一个启动的Baseapp,则创建房间管理器
+	if isBootstrap:
+		KBEngine.createEntityLocally("PtRoomMgr",{})
+
+
 def onReadyForLogin(isBootstrap):
 	"""
 	KBEngine method.

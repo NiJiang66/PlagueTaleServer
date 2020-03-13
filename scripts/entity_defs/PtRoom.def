@@ -1,0 +1,19 @@
+<root>
+
+	<Properties>
+	    <Name>
+	           <Type>        UNICODE       </Type>
+	           <Flags>       BASE          </Flags>
+	    </Name>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+</root>
