@@ -6,8 +6,10 @@
 	-->
 
 	<!-- <Avatar/> -->
-	<PtAccount hasClient="true"></PtAccount><!-- <Account hasCell="true" hasBase="true" hasClient="true"></Account> -->
-	<PtRole hasClient="true"></PtRole><!-- <Account hasCell="true" hasBase="true" hasClient="true"></Account> -->
+	<PtAccount hasClient="true"> </PtAccount><!-- <Account hasCell="true" hasBase="true" hasClient="true"></Account> -->
+	<PtRole hasClient="true"> </PtRole><!-- <Account hasCell="true" hasBase="true" hasClient="true"></Account> -->
 	<PtRoom/><!-- 自定义房间 -->
 	<PtRoomMgr/><!-- 房间管理器 -->
+	<PtMonster hasClient="true"> </PtMonster><!-- 怪物实体类 -->
+
 </root>

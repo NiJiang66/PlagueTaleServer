@@ -1,0 +1,28 @@
+<root>
+    <Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<optimized> true </optimized>
+	</Volatile>
+
+    <Interfaces>
+		<Interface>	    Character		</Interface>
+		<Interface>	    Motion		    </Interface>
+		<Interface>	    AI		        </Interface>
+	</Interfaces>
+
+	<Properties>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+</root>

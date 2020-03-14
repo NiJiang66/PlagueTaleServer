@@ -1,5 +1,6 @@
 <root>
     <DBID>     UINT64    </DBID>
+    <BOOL>     UINT8     </BOOL>>
 
     <!-- 角色额外数据 -->
     <ROLE_DATA> FIXED_DICT
@@ -67,5 +68,19 @@
             </Value>
         </Properties>
     </ROOM_LIST>
+
+    <!--  动画信息，速度和方向   -->
+    <ANIM_INFO> FIXED_DICT
+        <implementedBy>  ANIM_INFO.AnimInfoInst  </implementedBy>
+        <Properties>
+            <Speed>
+                <Type>  FLOAT  </Type>
+            </Speed>
+            <Direction>
+                <Type>  FLOAT  </Type>
+            </Direction>>
+        </Properties>
+    </ANIM_INFO>
+
 
 </root>
