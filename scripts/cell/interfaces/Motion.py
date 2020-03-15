@@ -15,16 +15,14 @@ class Motion:
         #初始化下一次移动的时间
         self.NextMoveTime = int(time.time() + random.randint(10, 15))
 
-        #临时方法
-        self.addTimer(0,1,1)
+
 
     def onTimer(self, tid, userArg):
         """
         KBEngine method.
         引擎回调timer触发
         """
-        if userArg is 1:
-            self.RandomWander()
+        pass
 
     def AnimUpdate(self, AnimInfo):
         """
@@ -139,7 +137,7 @@ class Motion:
 
 
 
-     # --------------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------------
     #                             move的Callbacks
     # --------------------------------------------------------------------------------------------
     def onMove(self, controllerId, userarg):

@@ -1,6 +1,10 @@
 <root>
     <DBID>     UINT64    </DBID>
     <BOOL>     UINT8     </BOOL>>
+    <ENTITY_ID>			INT32		</ENTITY_ID>
+    <ENTITYID_LIST> ARRAY <of> ENTITY_ID </of>	</ENTITYID_LIST>
+
+
 
     <!-- 角色额外数据 -->
     <ROLE_DATA> FIXED_DICT
