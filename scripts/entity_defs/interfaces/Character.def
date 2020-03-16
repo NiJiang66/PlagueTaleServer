@@ -1,0 +1,75 @@
+<root>
+	<Properties>
+        <Name>
+            <Type>          UNICODE             </Type>
+            <Flags>			ALL_CLIENTS		    </Flags>
+			<Persistent>	true			</Persistent>
+        </Name>
+        <RoleType>
+            <Type>          UINT8               </Type>
+            <Flags>			ALL_CLIENTS		    </Flags>
+			<Persistent>	true			</Persistent>
+        </RoleType>
+
+        <!-- 角色数据 -->
+        <BaseHP>    <!-- 基础血量 -->
+            <Type>      INT16         </Type>
+            <Flags>     ALL_CLIENTS     </Flags>
+            <Default>	500	    </Default>
+        </BaseHP>
+        <HP>        <!-- 实际血量 -->
+            <Type>      INT16         </Type>
+            <Flags>     ALL_CLIENTS     </Flags>
+            <Default>	500	    </Default>
+        </HP>
+        <Defense>   <!-- 防御力 -->
+            <Type>      INT16         </Type>
+            <Flags>     OWN_CLIENT     </Flags>
+            <Default>	10	    </Default>
+        </Defense>
+        <PowerRatio><!-- 力量加成 -->
+            <Type>      FLOAT         </Type>
+            <Flags>     OWN_CLIENT    </Flags>
+            <Default>	1.0	          </Default>
+        </PowerRatio>
+        <SpeedRatio><!-- 速度加成 -->
+            <Type>      FLOAT         </Type>
+            <Flags>     OWN_CLIENT    </Flags>
+            <Default>	1.0	          </Default>
+        </SpeedRatio>
+
+	</Properties>
+
+	<ClientMethods>
+	    <OnAttack>
+        </OnAttack>
+	</ClientMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+		<Relive>
+	        <Exposed/>
+	    </Relive>
+	    <Attack>
+            <Exposed/>
+        </Attack>
+        <AcceptDamage>
+            <Arg>       UINT8     </Arg>
+            <Arg>       UINT32    </Arg>
+        </AcceptDamage>
+
+        <PutOnEquip>
+            <Arg>       KIND_ID     </Arg>
+        </PutOnEquip>
+        <TakeOffEquip>
+            <Arg>       KIND_ID     </Arg>
+        </TakeOffEquip>
+        <AddBuff>
+            <Arg>       KIND_ID     </Arg>
+        </AddBuff>
+
+	</CellMethods>
+
+</root>

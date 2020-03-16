@@ -1,0 +1,47 @@
+<root>
+	<Properties>
+
+	    <!-- 怪物状态 0 自由移动 1 追逐玩家 2 攻击玩家 -->
+		<AIState>
+			<Type>			UINT8			</Type>
+			<Flags>			CELL_PRIVATE	</Flags>
+			<Default>		0			    </Default>
+		</AIState>
+		<!-- 更新状态(心跳)计时器ID -->
+		<UpdateStateID>
+			<Type>			UINT32			</Type>
+			<Flags>			CELL_PRIVATE	</Flags>
+			<Default>		0			    </Default>
+		</UpdateStateID>
+
+		<!-- 触发器ID，也就是怪物视野ID -->
+	    <TerritoryControllerId>
+			<Type>			UINT32			</Type>
+			<Flags>			CELL_PRIVATE	</Flags>
+			<Default>		0			    </Default>
+		</TerritoryControllerId>
+
+        <!-- 追逐攻击的目标id，这里目前是玩家实体id -->
+		<TargetId>
+		    <Type>          ENTITY_ID       </Type>
+		    <Flags>			CELL_PRIVATE    </Flags>
+		    <Default>		-1			    </Default>
+		</TargetId>
+        <!-- 进入领地的目标集合 -->
+        <TargetList>
+            <Type>          ENTITYID_LIST       </Type>
+		    <Flags>			CELL_PRIVATE		</Flags>
+		    <Default>		[]			        </Default>
+        </TargetList>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+</root>

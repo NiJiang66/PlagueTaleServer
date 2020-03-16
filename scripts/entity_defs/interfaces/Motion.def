@@ -1,0 +1,37 @@
+<root>
+	<Properties>
+		<MoveSpeed>
+			<Type>			FLOAT			</Type>
+			<Flags>			CELL_PRIVATE	</Flags>
+			<Default>		0.5			    </Default>
+		</MoveSpeed>
+	    <IsMoving>
+			<Type>			BOOL			</Type>
+			<Flags>			CELL_PRIVATE	</Flags>
+			<Default>		0			    </Default>
+		</IsMoving>
+		<NextMoveTime>
+			<Type>			UINT32			</Type>
+			<Flags>			CELL_PRIVATE	</Flags>
+			<Default>		0			    </Default>
+		</NextMoveTime>
+	</Properties>
+
+	<ClientMethods>
+		<OnAnimUpdate>
+	        <Arg>       ANIM_INFO         </Arg>
+	    </OnAnimUpdate>
+	</ClientMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+	    <AnimUpdate>
+	        <Exposed/>
+	        <Arg>       ANIM_INFO         </Arg>
+	    </AnimUpdate>
+
+	</CellMethods>
+
+</root>
