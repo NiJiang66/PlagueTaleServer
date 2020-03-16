@@ -1,0 +1,48 @@
+<root>
+	<Properties>
+
+        <SkillId>
+            <Type>          UINT8               </Type>
+            <Flags>			ALL_CLIENTS			</Flags>
+        </SkillId>
+
+        <OwnerId>
+            <Type>          UINT32              </Type>
+            <Flags>			CELL_PRIVATE	    </Flags>
+        </OwnerId>
+
+        <Damage>
+            <Type>          UINT8               </Type>
+            <Flags>			CELL_PRIVATE		</Flags>
+            <Default>		0					</Default>
+        </Damage>
+
+        <SpawnPos>
+            <Type>          VECTOR3             </Type>
+            <Flags>			CELL_PRIVATE		</Flags>
+        </SpawnPos>
+
+        <TargetPos>
+            <Type>          VECTOR3             </Type>
+            <Flags>			CELL_PRIVATE		</Flags>
+        </TargetPos>
+
+        <!-- 碰撞体ID -->
+	    <TerritoryControllerId>
+			<Type>			UINT32			</Type>
+			<Flags>			CELL_PRIVATE	</Flags>
+			<Default>		0			    </Default>
+		</TerritoryControllerId>
+
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+</root>

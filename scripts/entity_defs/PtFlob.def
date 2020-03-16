@@ -1,0 +1,37 @@
+<root>
+	<Properties>
+
+        <GoodId>
+            <Type>          GOOD_ID             </Type>
+            <Flags>			ALL_CLIENTS			</Flags>
+        </GoodId>
+
+        <GoodType>
+            <Type>          GOOD_TYPE           </Type>
+            <Flags>			CELL_PRIVATE		</Flags>
+        </GoodType>
+
+        <TargetId>
+		    <Type>          ENTITY_ID           </Type>
+		    <Flags>			CELL_PRIVATE		</Flags>
+		    <Default>		-1			        </Default>
+		</TargetId>
+
+	    <TerritoryControllerId>
+			<Type>			UINT32			    </Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		0			        </Default>
+		</TerritoryControllerId>
+
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+</root>

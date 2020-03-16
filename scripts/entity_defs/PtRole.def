@@ -27,12 +27,88 @@
 	        <Type>      VECTOR3      </Type>
 	        <Flags>     OWN_CLIENT   </Flags>
 	    </SpawnPoint>
+
+	    <!-- 主背包 -->
+        <MainBag>
+            <Type>          BAG_INFO    </Type>
+            <Flags>			BASE		</Flags>
+            <Persistent>	true		</Persistent>
+        </MainBag>
+        <!-- 技能快捷栏 -->
+        <SkillBag>
+            <Type>          BAG_INFO    </Type>
+            <Flags>			BASE		</Flags>
+            <Persistent>	true		</Persistent>
+        </SkillBag>
+        <!-- Buff快捷栏 -->
+        <BuffBag>
+            <Type>          BAG_INFO    </Type>
+            <Flags>			BASE		</Flags>
+            <Persistent>	true		</Persistent>
+        </BuffBag>
+        <!-- 装备快捷栏 -->
+        <EquipBag>
+            <Type>          BAG_INFO    </Type>
+            <Flags>			BASE		</Flags>
+            <Persistent>	true		</Persistent>
+        </EquipBag>
+
 	</Properties>
 
 	<ClientMethods>
+		<!-- 请求获取所有背包数据回调函数 -->
+	    <OnReqBagList>
+	        <!-- 从上往下数是 : MainBag SkillBag BuffBag EquipBag -->
+	        <Arg>   BAG_INFO    </Arg>
+	        <Arg>   BAG_INFO    </Arg>
+	        <Arg>   BAG_INFO    </Arg>
+	        <Arg>   BAG_INFO    </Arg>
+	    </OnReqBagList>
+	    <!-- 增加物品回调函数 -->
+	    <OnIncreaseGood>
+            <Arg>   BAG_TYPE    </Arg>
+            <Arg>   GOOD_INFO   </Arg>
+	    </OnIncreaseGood>
+        <!-- 减少物品回调函数 -->
+        <OnReduceGood>
+            <Arg>   REDUCE_RES  </Arg>
+            <Arg>   BAG_TYPE    </Arg>
+            <Arg>   GOOD_INFO   </Arg>
+        </OnReduceGood>
+        <!-- 移动物品回调函数 -->
+        <OnPassGood>
+            <!--<Arg>   PASS_RES    </Arg>-->
+            <Arg>   BAG_TYPE        </Arg>
+            <Arg>   GOOD_INFO       </Arg>
+            <Arg>   BAG_TYPE        </Arg>
+            <Arg>   GOOD_INFO       </Arg>
+        </OnPassGood>
 	</ClientMethods>
 
 	<BaseMethods>
+	    <!-- 请求获取所有背包数据 -->
+	    <ReqBagList>
+	        <Exposed/>
+	    </ReqBagList>
+	    <!-- 增加物品到背包 -->
+	    <IncreaseGood>
+	        <Arg>   GOOD_ID     </Arg>
+	        <Arg>   GOOD_TYPE   </Arg>
+	    </IncreaseGood>
+	    <!-- 从背包减少物品 -->
+        <ReduceGood>
+            <Exposed/>
+            <Arg>   BAG_TYPE    </Arg>
+            <Arg>   BLOCK_ID    </Arg>
+        </ReduceGood>
+        <!-- 传递物品到某类型背包的某位置 -->
+        <PassGood>
+            <Exposed/>
+            <Arg>   BAG_TYPE      </Arg>
+            <Arg>   BLOCK_ID      </Arg>
+            <Arg>   BAG_TYPE      </Arg>
+            <Arg>   BLOCK_ID      </Arg>
+        </PassGood>
 	</BaseMethods>
 
 	<CellMethods>

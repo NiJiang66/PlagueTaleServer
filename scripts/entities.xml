@@ -11,5 +11,7 @@
 	<PtRoom/><!-- 自定义房间 -->
 	<PtRoomMgr/><!-- 房间管理器 -->
 	<PtMonster hasClient="true"> </PtMonster><!-- 怪物实体类 -->
+	<PtFlob hasClient="true"> </PtFlob><!-- 掉落物 -->
+	<PtSkill hasClient="true"> </PtSkill><!-- 攻击技能 -->
 
 </root>

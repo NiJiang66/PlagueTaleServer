@@ -402,16 +402,16 @@ class AI:
             return
 
         # 如果是存活的怪物, 从朋友列表移除
-        if not entityEntering.isDestroyed and entityEntering.GetScriptName() is "PtMonster" and entityEntering.id in self.FriendList:
-            self.FriendList.remove(entityEntering.id)
+        if not entityLeaving.isDestroyed and entityLeaving.GetScriptName() is "PtMonster" and entityLeaving.id in self.FriendList:
+            self.FriendList.remove(entityLeaving.id)
 
         # 筛选一下，必须是Avatar，并且没有dead
-        if entityEntering.isDestroyed or entityEntering.GetScriptName() != "PtRole":
+        if entityLeaving.isDestroyed or entityLeaving.GetScriptName() != "PtRole":
             return
 
         # 到这一定是PtRole玩家，则将实体id从目标列表移除
-        if entityEntering.id not in self.TargetList:
-            self.TargetList.remove(entityEntering.id)
+        if entityLeaving.id not in self.TargetList:
+            self.TargetList.remove(entityLeaving.id)
 
 
     def onWitnessed(self, isWitnessed):

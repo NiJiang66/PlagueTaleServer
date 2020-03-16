@@ -4,7 +4,19 @@
     <ENTITY_ID>			INT32		</ENTITY_ID>
     <ENTITYID_LIST> ARRAY <of> ENTITY_ID </of>	</ENTITYID_LIST>
 
+    <!-- 物品类型 -->
+    <GOOD_TYPE>         UINT8        </GOOD_TYPE>
+    <!-- 物品Id -->
+    <GOOD_ID>           UINT8        </GOOD_ID>
+    <!-- 细分物品种类Id -->
+    <KIND_ID>           UINT8        </KIND_ID>
 
+    <!-- 背包类型 -->
+    <BAG_TYPE>            UINT8       </BAG_TYPE>
+    <!-- 背包格子位置 -->
+    <BLOCK_ID>            UINT8       </BLOCK_ID>
+    <!-- 减少(使用)物品结果 -->
+    <REDUCE_RES>        UINT8         </REDUCE_RES>
 
     <!-- 角色额外数据 -->
     <ROLE_DATA> FIXED_DICT
@@ -86,5 +98,33 @@
         </Properties>
     </ANIM_INFO>
 
+    <!--  物品信息   -->
+    <GOOD_INFO> FIXED_DICT
+        <implementedBy>BAG_INFO.GoodInfoInst</implementedBy>
+        <Properties>
+            <!-- 背包位置Id -->
+            <BlockId>
+                <Type>  BLOCK_ID   </Type>
+            </BlockId>
+            <!-- 物品Id -->
+            <GoodId>
+                <Type>  UINT8   </Type>
+            </GoodId>
+            <!-- 物品数量 -->
+            <Number>
+                <Type>  UINT8  </Type>
+            </Number>
+        </Properties>
+    </GOOD_INFO>
+    <!--  背包信息   -->
+    <BAG_INFO> FIXED_DICT
+        <implementedBy>BAG_INFO.BagInfoInst</implementedBy>
+        <Properties>
+            <!-- 物品列表 -->
+            <Value>
+                <Type> ARRAY <of> GOOD_INFO </of> </Type>
+            </Value>
+        </Properties>
+    </BAG_INFO>
 
 </root>

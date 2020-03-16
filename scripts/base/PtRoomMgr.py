@@ -20,9 +20,9 @@ class PtRoomMgr(KBEngine.Entity):
         # 创建中的房间字典, key : 房间名  value : Account
         self.DemandAccount = {}
 
-        # 创建两个默认房间
-        self.CreateRoom("地图_1", None)
-        self.CreateRoom("地图_2", None)
+        # 创建两个默认线路(也可以叫做房间或者地图)
+        self.CreateRoom("线路-1", None)
+        self.CreateRoom("线路-2", None)
 
     def CreateRoom(self, Name, Account):
         """
