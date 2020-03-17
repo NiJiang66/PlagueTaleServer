@@ -3,6 +3,8 @@ import KBEngine
 from KBEDebug import *
 import random
 import Math
+from BAG_INFO import TGoodInfo, TBagInfo
+from D_Good import *
 
 class PtRole(KBEngine.Proxy):
 	def __init__(self):
@@ -11,31 +13,7 @@ class PtRole(KBEngine.Proxy):
 		self.AccountEntity = None
 
 		# 生成初始化位置
-		# 随机获得1或-1
-		#SymbolX = random.randint(0, 1)
-		#if SymbolX is 0:
-		#	SymbolX = -1
-		#SymbolY = random.randint(0, 1)
-		#if SymbolY is 0:
-		#	SymbolY = -1
-		# 缩小范围
-		self.cellData["SpawnPoint"] = Math.Vector3(random.randint(2500, 5000) * SymbolX, random.randint(2500, 5000) * SymbolY, 10)
-
-		# 根据物品类型和细分种类id初始生成2个技能
-		GoodId0 = GetGoodIdByTypeKind(0, 0)
-		# 生成掉落物
-		Props0 = {
-			"GoodId": GoodId0,
-			"GoodType": 0
-		}
-		GoodId1 = GetGoodIdByTypeKind(0, 1)
-		# 生成掉落物
-		Props1 = {
-			"GoodId": GoodId1,
-			"GoodType": 0
-		}
-		KBEngine.createEntity("PtFlob", self.spaceID, self.position, Math.Vector3(0.5, 0, 0), Props0)
-		KBEngine.createEntity("PtFlob", self.spaceID, self.position, Math.Vector3(-0.5, 0, 0), Props1)
+		self.cellData["SpawnPoint"] = Math.Vector3(random.randint(2500, 5000), random.randint(2500, 5000), 10)
 
 
 	def ReqBagList(self):

@@ -24,7 +24,7 @@ class PtRoom(KBEngine.Space):
                 "Name": "怪物_" + str(i),
                 "HP": 500,
             }
-            KBEngine.createEntity("PtMonster", self.spaceID, Math.Vector3(random.randint(-50, 50), 0.5, random.randint(-50, 50)), Math.Vector3(0, 0, random.randint(0, 360)), MonsterProps)
+            KBEngine.createEntity("PtMonster", self.spaceID, Math.Vector3(random.randint(-50, 50), 0.7, random.randint(-50, 50)), Math.Vector3(0, 0, random.randint(0, 360)), MonsterProps)
 
     def GetScriptName(self):
         return self.__class__.__name__

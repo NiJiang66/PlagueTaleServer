@@ -4,6 +4,8 @@ from KBEDebug import *
 from ROLE_DATA import TRoleData
 from ROLE_INFO import TRoleInfo,TRoleList
 from ROOM_INFO import TRoomInfo,TRoomList
+from BAG_INFO import TGoodInfo, TBagInfo
+from D_Good import *
 
 
 class PtAccount(KBEngine.Proxy):
@@ -52,9 +54,9 @@ class PtAccount(KBEngine.Proxy):
 		DEBUG_MSG("PtAccount[%i].ReqRoleList: Size=%i. Data = %s" % (self.id, len(self.RoleList), self.RoleList))
 
 		# 在这个位置判断已激活角色是否为空, 如果不为空, 说明是从房间返回到大厅, base实体还存在, 直接销毁
-		#if self.ActiveRole is not None:
-		#	self.ActiveRole.destroy()
-		#	self.ActiveRole = None
+		if self.ActiveRole is not None:
+			self.ActiveRole.destroy()
+			self.ActiveRole = None
 
 		# 再发送角色列表到客户端
 		self.client.OnReqRoleList(self.RoleList)
@@ -70,19 +72,54 @@ class PtAccount(KBEngine.Proxy):
 		# 检查是否能够创建角色，依据是是否有同名或者同类型的角色存在
 		for key,info in self.RoleList.items():
 			if info[1] is Name:
-				self.client.OnCreateRoleResult(1, RoleInfo)
-				return
+				if self.client:
+					self.client.OnCreateRoleResult(1, RoleInfo)
+					return
 			if info[2] is RoleType:
-				self.client.OnCreateRoleResult(2, RoleInfo)
-				return
+				if self.client:
+					self.client.OnCreateRoleResult(2, RoleInfo)
+					return
+
+		#获取场景并且声称角色，将角色写到数据库，数据库写入完成后再告诉客户端创建结果，第一次创建的角色要给初始技能
+		SkillGoodProp = {
+			"BlockId": 0,
+			"GoodId": 0,
+			"Number": 1,
+		}
+		SkillGood = TGoodInfo().createFromDict(SkillGoodProp)
+		SkillBagProp = {
+			"Value": [SkillGood]
+		}
+		SkillBag = TBagInfo().createFromDict(SkillBagProp)
+
+		# 这里把所有的物品都创建出来放到主背包作为测试用, 技能除外
+		# 装备物品
+		MainBagProp = {"Value": []}
+		for Index in range(0, 3):
+			EquipGoodProp = {
+				"BlockId": Index,
+				"GoodId": GetGoodIdByTypeKind(EGoodType.Equip.value, Index),
+				"Number": 1,
+			}
+			MainBagProp["Value"].append(TGoodInfo().createFromDict(EquipGoodProp))
+
+		# buff物品
+		for Index in range(0, 3):
+			BuffGoodProp = {
+				"BlockId": Index + 3,
+				"GoodId": GetGoodIdByTypeKind(EGoodType.Buff.value, Index),
+				"Number": 20,
+			}
+			MainBagProp["Value"].append(TGoodInfo().createFromDict(BuffGoodProp))
+		MainBag = TBagInfo().createFromDict(MainBagProp)
 
 		# 创建PtRole
 		Props = {
 			"Name" 		: Name,
-			"RoleType"	: RoleType
+			"RoleType"	: RoleType,
+			"SkillBag"	: SkillBag,
+			"MainBag"	: MainBag
 		}
-			#"SkillBag"	: SkillBag,
-			#"MainBag"	: MainBag
 		Role = KBEngine.createEntityLocally("PtRole", Props)
 
 		# 将角色写入数据库，再在回调函数通知客户端是否创建角色成功
