@@ -99,7 +99,13 @@ class PtRole(KBEngine.Proxy):
 		# 定义变量判定是否无背包数据
 		IsEmptyBlockId = False
 
-		if BagType is EBagType.BuffBag.value:
+		if BagType is EBagType.SkillBag.value:
+			# 从技能背包获取物品信息
+			if BlockId in self.SkillBag:
+				self.client.OnReduceGood(EReduceResult.Succeed.value, BagType, self.SkillBag[BlockId])
+			else:
+				IsEmptyBlockId = True
+		elif BagType is EBagType.BuffBag.value:
 			# 从Buff背包减少物品
 			if BlockId in self.BuffBag:
 				self.BuffBag[BlockId]["Number"] -= 1

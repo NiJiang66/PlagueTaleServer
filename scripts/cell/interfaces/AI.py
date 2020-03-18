@@ -25,8 +25,6 @@ class AI:
         self.FriendList = []
         # 设定攻击范围
         self.AttackRange = 3
-        # 添加攻击时间间隔, 每隔三秒攻击一次
-        self.AttackSpace = 0
         # 设定丢失范围
         self.MissingRange = 20
         # 设定怪物视野触发范围
@@ -99,14 +97,14 @@ class AI:
             self.RandomWander()
             return
 
-        if TargetDistance <= self.AttackRange:
+        if TargetDistance < self.AttackRange:
             self.TargetId = TempTargetId
             self.AIState = EAIState.Attack.value
         elif TargetDistance > self.AttackRange and TargetDistance < self.MissingRange:
             self.TargetId = TempTargetId
             self.AIState = EAIState.Chase.value
         else:
-            self.AIState = EAIState.Wander
+            self.AIState = EAIState.Wander.value
             # 随机移动
             self.RandomWander()
 
@@ -222,8 +220,8 @@ class AI:
             if self.AttackSpace is not 0:
                 self.AttackSpace -= 1
             else:
-                # 广播客户端播放攻击动画
-                self.allClients.OnAttack()
+                # 广播客户端播放攻击动画,为普通攻击
+                self.allClients.OnAttack(0)
                 # 给目标减血
                 TargetEntity.AcceptDamage(self.Damage, self.id)
                 # 重新计数

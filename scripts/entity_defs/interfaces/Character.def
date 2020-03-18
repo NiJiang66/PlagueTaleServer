@@ -42,6 +42,7 @@
 
 	<ClientMethods>
 	    <OnAttack>
+	         <Arg>       UINT8     </Arg> <!-- 0:普通攻击  1：技能1  2技能2  3：技能3  4：技能4 -->
         </OnAttack>
 	</ClientMethods>
 
@@ -54,6 +55,7 @@
 	    </Relive>
 	    <Attack>
             <Exposed/>
+            <Arg>       SKILL_INFO    </Arg>
         </Attack>
         <AcceptDamage>
             <Arg>       UINT8     </Arg>

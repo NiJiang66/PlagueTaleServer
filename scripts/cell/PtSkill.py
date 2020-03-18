@@ -9,8 +9,10 @@ class PtSkill(KBEngine.Entity):
 
     def __init__(self):
         KBEngine.Entity.__init__(self)
-        self.MoveSpeed = 0
+        self.MoveSpeed = 25
         self.Enable()
+        #目前不需要技能拥有者id
+        self.OwnerId = 0
 
 
     def Enable(self):
@@ -22,7 +24,6 @@ class PtSkill(KBEngine.Entity):
 
         if self.SkillId == 0:
             pass
-
 
         #判断是不是需要移动技能
         if self.TargetPos != self.SpawnPos:
@@ -76,13 +77,14 @@ class PtSkill(KBEngine.Entity):
         添加领地
         进入领地范围的某些entity将视为敌人
         """
-        #在这里判断是哪种技能
+        # 在这里判断是哪种技能
         self.TerritoryControllerId = self.addProximity(2, 0, 0)
 
         if self.TerritoryControllerId <= 0:
             ERROR_MSG("Skill %i::addTerritory: %i, range=%i, is error!" % (self.SkillId, self.id, 2))
         else:
-            INFO_MSG("Skill %i::addTerritory: %i range=%i, id=%i." % (self.SkillId, self.id, 2, self.TerritoryControllerId))
+            INFO_MSG(
+                "Skill %i::addTerritory: %i range=%i, id=%i." % (self.SkillId, self.id, 2, self.TerritoryControllerId))
 
     def DelTerritory(self):
         """
@@ -106,6 +108,18 @@ class PtSkill(KBEngine.Entity):
 
         # 忽略自己
         if entityEntering.id == self.OwnerId:
+            #如果是加血技能,加血技能id为4
+            #if self.SkillId == 3:
+             #   TargetH = PentityEntering.HP + self.Damage
+             #   if TargetH > PentityEntering.BaseHP:
+             #       entityEntering.HP = PentityEntering.BaseHP
+             #   else:
+             #       entityEntering.HP = TargetH
+
+                # 删除碰撞
+              #  self.DelTerritory()
+                # 销毁技能 客户端销毁技能
+              #  self.destroy()
             return
 
         # 筛选一下，必须是角色

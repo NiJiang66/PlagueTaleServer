@@ -8,7 +8,7 @@ from interfaces.AI import AI
 class PtMonster(KBEngine.Entity,
              Character,
              Motion,
-                AI
+             AI
              ):
 
     def __init__(self):
@@ -18,7 +18,7 @@ class PtMonster(KBEngine.Entity,
         AI.__init__(self)
 
         # 临时代码
-        self.addTimer(0, 1, 0)
+        #self.addTimer(0, 1, 0)
 
     def onTimer(self, tid, userArg):
         """
@@ -29,4 +29,4 @@ class PtMonster(KBEngine.Entity,
         # 分发到有onTimer的父类
         AI.onTimer(self, tid, userArg)
         Character.onTimer(self, tid, userArg)
-        Motion.onTimer(self, tid, userArg)
+        #Motion.onTimer(self, tid, userArg)

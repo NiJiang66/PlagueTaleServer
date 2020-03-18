@@ -5,6 +5,7 @@ import math
 import Math
 import time
 import random
+from SKILL_INFO import TSkillInfo
 from CalculateLib import *
 from D_Good import *
 
@@ -31,8 +32,28 @@ class Character:
         """
         进行攻击
         """
+        SpawnPos = U2KVec(SkillInfo["SpawnPos"])
+        TargetPos = U2KVec(SkillInfo["TargetPos"])
+
+        #将技能与普通攻击分开
+        #如果是普通攻击，不生成技能
+        #if SkillInfo["SkillId"] == 0:
+            # 告诉所有客户端播放动画
+         #   self.allClients.OnAttack(0)
+         #   return
+
+        # 生成的技能攻击力要乘上力量加成
+        Props = {
+            "SkillId" : SkillInfo["SkillId"],
+            "OwnerId" : self.id,
+            "Damage" : int(60 * self.PowerRatio),
+            "SpawnPos": SpawnPos,
+            "TargetPos": TargetPos
+        }
+        # 生成技能
+        KBEngine.createEntity("PtSkill", self.spaceID, SpawnPos, Math.Vector3(0, 0, 0), Props)
         # 告诉所有客户端播放动画
-        self.allClients.OnAttack()
+        self.allClients.OnAttack(SkillInfo["SkillId"])
 
 
     def AcceptDamage(self, Damage, SenderId):
@@ -56,13 +77,14 @@ class Character:
                 KindId = random.randint(0, GetKindNumByType(GoodType))
                 # 根据上面两个数据获取物品Id
                 GoodId = GetGoodIdByTypeKind(GoodType, KindId)
-                self.destroy()
                 # 生成掉落物
                 Props = {
                     "GoodId" : GoodId,
                     "GoodType": GoodType
                 }
                 KBEngine.createEntity("PtFlob", self.spaceID, self.position, Math.Vector3(0, 0, 0), Props)
+                INFO_MSG("Create PtFlob When PtMonster AcceptDamage to HP == 0. " )
+                self.destroy()
         else:
             self.HP -= FactDamage
 

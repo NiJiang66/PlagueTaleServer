@@ -127,4 +127,20 @@
         </Properties>
     </BAG_INFO>
 
+        <SKILL_INFO> FIXED_DICT
+        <implementedBy>SKILL_INFO.SkillInfoInst</implementedBy>
+        <Properties>
+            <SkillId>
+                <Type>     UINT8     </Type>
+            </SkillId>
+            <SpawnPos>
+                <Type>     VECTOR3     </Type>
+            </SpawnPos>
+            <TargetPos>
+                <Type>     VECTOR3     </Type>
+            </TargetPos>
+        </Properties>
+    </SKILL_INFO>
+
+
 </root>
