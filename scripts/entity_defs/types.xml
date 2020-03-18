@@ -142,5 +142,38 @@
         </Properties>
     </SKILL_INFO>
 
+    <!-- 单条聊天信息 -->
+    <CHAT_INFO> FIXED_DICT
+        <implementedBy>CHAT_INFO.ChatInfoInst</implementedBy>
+        <Properties>
+            <!-- 条目序号 -->
+            <Index>
+                <Type>   UINT32   </Type>
+            </Index>
+            <!-- 玩家名字 -->
+            <Name>
+                <Type>  UNICODE  </Type>
+            </Name>
+            <!-- 日期 -->
+            <Date>
+                <Type>  UNICODE  </Type>
+            </Date>
+            <!-- 消息 -->
+            <Message>
+                <Type>  UNICODE  </Type>
+            </Message>
+        </Properties>
+    </CHAT_INFO>
+
+    <!-- 聊天信息列表,用于批量发送信息到客户端 -->
+    <CHAT_LIST> FIXED_DICT
+        <implementedBy>CHAT_INFO.ChatListInst</implementedBy>
+        <Properties>
+            <!-- 物品列表 -->
+            <Value>
+                <Type> ARRAY <of> CHAT_INFO </of> </Type>
+            </Value>
+        </Properties>
+    </CHAT_LIST>
 
 </root>

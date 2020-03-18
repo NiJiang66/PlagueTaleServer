@@ -53,6 +53,13 @@
             <Persistent>	true		</Persistent>
         </EquipBag>
 
+        <!-- 聊天信息最近的序号 -->
+        <ChatIndex>
+            <Type>          UINT32      </Type>
+            <Flags>			BASE		</Flags>
+            <Default>       0           </Default>
+        </ChatIndex>
+
 	</Properties>
 
 	<ClientMethods>
@@ -83,6 +90,12 @@
             <Arg>   BAG_TYPE        </Arg>
             <Arg>   GOOD_INFO       </Arg>
         </OnPassGood>
+
+        <!-- 接收服务器的最新聊天信息列表 -->
+        <OnAcceptChatList>
+            <Arg>   CHAT_LIST   </Arg>
+        </OnAcceptChatList>
+
 	</ClientMethods>
 
 	<BaseMethods>
@@ -109,6 +122,13 @@
             <Arg>   BAG_TYPE      </Arg>
             <Arg>   BLOCK_ID      </Arg>
         </PassGood>
+
+        <!-- 传递聊天信息到服务器 -->
+        <SendChatInfo>
+            <Exposed/>
+            <Arg>   UNICODE      </Arg>
+        </SendChatInfo>
+
 	</BaseMethods>
 
 	<CellMethods>

@@ -22,9 +22,6 @@ class PtSkill(KBEngine.Entity):
         # 在定时器内触发检测, 不开启循环
         self.addTimer(0, 0, 1)
 
-        if self.SkillId == 0:
-            pass
-
         #判断是不是需要移动技能
         if self.TargetPos != self.SpawnPos:
             # 获取移动方向

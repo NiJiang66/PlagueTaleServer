@@ -80,16 +80,15 @@ class PtAccount(KBEngine.Proxy):
 					self.client.OnCreateRoleResult(2, RoleInfo)
 					return
 
-		#获取场景并且声称角色，将角色写到数据库，数据库写入完成后再告诉客户端创建结果，第一次创建的角色要给初始技能
-		SkillGoodProp = {
-			"BlockId": 0,
-			"GoodId": 0,
-			"Number": 1,
-		}
-		SkillGood = TGoodInfo().createFromDict(SkillGoodProp)
-		SkillBagProp = {
-			"Value": [SkillGood]
-		}
+		#获取场景并且声称角色，将角色写到数据库，数据库写入完成后再告诉客户端创建结果，第一次创建的角色要给初始技能,暂时只做了1个技能
+		SkillBagProp = {"Value":[]}
+		for Index in range(0,1):
+			SkillGoodProp = {
+				"BlockId": Index,
+				"GoodId": GetGoodIdByTypeKind(EGoodType.Skill.value, Index),
+				"Number": 1,
+			}
+			SkillBagProp["Value"].append(TGoodInfo().createFromDict(SkillGoodProp))
 		SkillBag = TBagInfo().createFromDict(SkillBagProp)
 
 		# 这里把所有的物品都创建出来放到主背包作为测试用, 技能除外

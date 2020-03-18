@@ -5,6 +5,7 @@ import random
 import Math
 from BAG_INFO import TGoodInfo, TBagInfo
 from D_Good import *
+from CHAT_INFO import TChatInfo, TChatList
 
 class PtRole(KBEngine.Proxy):
 	def __init__(self):
@@ -15,6 +16,10 @@ class PtRole(KBEngine.Proxy):
 		# 生成初始化位置
 		self.cellData["SpawnPoint"] = Math.Vector3(random.randint(2500, 5000), random.randint(2500, 5000), 10)
 
+		# 每隔10秒钟保存一次数据库, 主要是为了保存背包数据
+		self.addTimer(0, 10, 0)
+		# 每隔1秒钟询问房间索要聊天信息
+		self.addTimer(0, 1, 1)
 
 	def ReqBagList(self):
 		"""
@@ -275,3 +280,48 @@ class PtRole(KBEngine.Proxy):
 			self.EquipBag[BlockId] = GoodInfo
 		elif BagType is EBagType.MainBag.value:
 			self.MainBag[BlockId] = GoodInfo
+
+	# =============聊天系统===============
+	def SendChatInfo(self, Message):
+		"""
+        接收客户端传过来的聊天信息
+        :param Message:字符串聊天信息
+        """
+		# 先尝试获取房间
+		RoomEntity = KBEngine.globalData["PtRoomMgr"].GetRoomById(self.AccountEntity.LastSelRoom)
+		if RoomEntity is not None:
+			RoomEntity.AppendChatInfo(self.cellData["Name"], Message)
+
+
+
+	# ======  引擎系统回调  ======
+
+	def onTimer(self, TimeId, UserArg):
+		"""
+        KBEngine method.
+        引擎回调timer触发
+        """
+		if UserArg is 0:
+			self.writeToDB()
+
+		# 每秒被执行一次广播聊天信息给客户端
+		if UserArg is 1:
+			if self.AccountEntity is not None:
+				# 先尝试获取房间
+				RoomEntity = KBEngine.globalData["PtRoomMgr"].GetRoomById(self.AccountEntity.LastSelRoom)
+				# 从房间拿聊天信息, 销毁cell的时候转移了客户端代理, client可能为空
+				if RoomEntity is not None and self.client is not None:
+					InfoList, ChatNum = RoomEntity.RequestChatList(self)
+					if self.ChatIndex != ChatNum:
+						self.ChatIndex = ChatNum
+						# 如果获取的列表数量不为0
+						if len(InfoList) is not 0:
+							# 保存到CHAT_LIST结构发送到客户端
+							Props = {
+								"Value": InfoList
+							}
+							ChatList = TChatList().createFromDict(Props)
+							self.client.OnAcceptChatList(ChatList)
+						# DEBUG_MSG("PtRole[%i]::OnAcceptChatList[%i]" % (self.id, len(InfoList)))
+			else:
+				DEBUG_MSG('PtRole[%i]::onTimer AccountEntity is None' % self.id)
