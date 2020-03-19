@@ -19,12 +19,12 @@ class PtRoom(KBEngine.Space):
         # KBEngine.addSpaceGeometryMapping(self.spaceID, None, "spaces/MmoMapTwo")
 
         #随机创建多个Monster
-        for i in range(random.randint(8, 12)):
+        for i in range(random.randint(5, 8)):
             MonsterProps = {
                 "Name": "怪物_" + str(i),
                 "HP": 500,
             }
-            KBEngine.createEntity("PtMonster", self.spaceID, Math.Vector3(random.randint(-50, 50), 0.7, random.randint(-50, 50)), Math.Vector3(0, 0, random.randint(0, 360)), MonsterProps)
+            KBEngine.createEntity("PtMonster", self.spaceID, Math.Vector3(random.randint(-7, 7), 0.7, random.randint(-7, 7)), Math.Vector3(0, 0, random.randint(0, 360)), MonsterProps)
 
     def GetScriptName(self):
         return self.__class__.__name__

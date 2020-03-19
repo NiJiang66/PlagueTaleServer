@@ -80,20 +80,22 @@ class PtAccount(KBEngine.Proxy):
 					self.client.OnCreateRoleResult(2, RoleInfo)
 					return
 
-		#获取场景并且声称角色，将角色写到数据库，数据库写入完成后再告诉客户端创建结果，第一次创建的角色要给初始技能,暂时只做了1个技能
+		#获取场景并且声称角色，将角色写到数据库，数据库写入完成后再告诉客户端创建结果，第一次创建的角色要给初始技能,暂时只做了1个技能，并且先放到主背包
 		SkillBagProp = {"Value":[]}
-		for Index in range(0,1):
-			SkillGoodProp = {
-				"BlockId": Index,
-				"GoodId": GetGoodIdByTypeKind(EGoodType.Skill.value, Index),
-				"Number": 1,
-			}
-			SkillBagProp["Value"].append(TGoodInfo().createFromDict(SkillGoodProp))
+		#for Index in range(0,1):
+		#	SkillGoodProp = {
+		#		"BlockId": Index,
+		#		"GoodId": GetGoodIdByTypeKind(EGoodType.Skill.value, Index),
+		#		"Number": 1,
+		#	}
+		#	SkillBagProp["Value"].append(TGoodInfo().createFromDict(SkillGoodProp))
 		SkillBag = TBagInfo().createFromDict(SkillBagProp)
 
 		# 这里把所有的物品都创建出来放到主背包作为测试用, 技能除外
 		# 装备物品
 		MainBagProp = {"Value": []}
+
+
 		for Index in range(0, 3):
 			EquipGoodProp = {
 				"BlockId": Index,
@@ -110,6 +112,15 @@ class PtAccount(KBEngine.Proxy):
 				"Number": 20,
 			}
 			MainBagProp["Value"].append(TGoodInfo().createFromDict(BuffGoodProp))
+
+		for Index in range(0,1):
+			SkillGoodProp = {
+				"BlockId": Index + 6,
+				"GoodId": GetGoodIdByTypeKind(EGoodType.Skill.value, Index),
+				"Number": 1,
+			}
+			MainBagProp["Value"].append(TGoodInfo().createFromDict(SkillGoodProp))
+
 		MainBag = TBagInfo().createFromDict(MainBagProp)
 
 		# 创建PtRole

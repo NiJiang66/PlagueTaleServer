@@ -14,7 +14,7 @@ class PtRole(KBEngine.Proxy):
 		self.AccountEntity = None
 
 		# 生成初始化位置
-		self.cellData["SpawnPoint"] = Math.Vector3(random.randint(2500, 5000), random.randint(2500, 5000), 10)
+		self.cellData["SpawnPoint"] = Math.Vector3(random.randint(3500, 4000), random.randint(3500, 4000), 10)
 
 		# 每隔10秒钟保存一次数据库, 主要是为了保存背包数据
 		self.addTimer(0, 10, 0)
